@@ -20,26 +20,25 @@ class VideoService:
         directory = self.get_chunk_directory(video_id)
 
         # Atualiza o status para 'UPLOADED_STARTED' e armazena o chunk
-        with transaction.atomic():
-            video_media = self.__prepare_video_media(video)
+        video_media = self.__prepare_video_media(video)
 
-            if video_media.status == VideoMedia.Status.PROCESS_STARTED: #upload finalizado
-                raise VideoMediaInvalidStatusException('An upload is already in progress.')
+        if video_media.status == VideoMedia.Status.PROCESS_STARTED: #upload finalizado
+            raise VideoMediaInvalidStatusException('An upload is already in progress.')
 
             # Se o status já está em 'UPLOADED_STARTED', continua armazenando os chunks
-            if video_media.status == VideoMedia.Status.UPLOADED_STARTED:
-                self.storage.storage_chunk(str(video_media.video_path), chunk_index, chunk)
-                return
+        if video_media.status == VideoMedia.Status.UPLOADED_STARTED:
+            self.storage.storage_chunk(str(video_media.video_path), chunk_index, chunk)
+            return
 
             # Se o processamento já terminou, reinicia o caminho do diretório de chunks
-            if video_media.status == VideoMedia.Status.PROCESS_FINISHED:
-                video_media.video_path = directory
-                video.is_published = False
-                video.save()
+        if video_media.status == VideoMedia.Status.PROCESS_FINISHED:
+            video_media.video_path = directory
+            video.is_published = False
+            video.save()
 
-            video_media.status = VideoMedia.Status.UPLOADED_STARTED
-            video_media.save()
-            self.storage.storage_chunk(str(video_media.video_path), chunk_index, chunk)
+        video_media.status = VideoMedia.Status.UPLOADED_STARTED
+        video_media.save()
+        self.storage.storage_chunk(str(video_media.video_path), chunk_index, chunk)
 
     def __prepare_video_media(self, video: Video) -> VideoMedia:
         try:
