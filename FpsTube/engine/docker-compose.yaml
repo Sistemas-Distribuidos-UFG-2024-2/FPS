@@ -1,0 +1,24 @@
+include:
+  - ../rabbitmq/docker-compose.yaml
+  - ../nginx/docker-compose.yaml
+
+services:
+  engine:
+    build: .
+    environment:
+      - VIDEO_ROOT_PATH=/media/uploads
+      - RABBITMQ_URL=amqp://guest:guest@rabbitmq:5672/
+    volumes:
+      - .:/app # Mount the local app directory for live development
+      - external-storage:/media/uploads # Mount external storage volume
+    tty: true
+    stdin_open: true
+    depends_on:
+      - rabbitmq
+    restart: always
+
+
+  
+volumes:
+  external-storage:
+    external: true

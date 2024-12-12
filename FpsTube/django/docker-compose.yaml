@@ -1,0 +1,25 @@
+include:
+  - ../rabbitmq/docker-compose.yaml
+  - ../nginx/docker-compose.yaml
+
+services:
+
+  django:
+    build: .
+    ports:
+      - 8000:8000
+    environment:
+      - RABBITMQ_URL=amqp://guest:guest@rabbitmq:5672/
+      - ASSETS_URL=http://host.docker.internal:9000/media/uploads
+      - MEDIA_ROOT=/media/uploads/
+    volumes:
+      - .:/app
+      - external-storage:/media/uploads
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    depends_on:
+      - rabbitmq
+
+volumes:
+  external-storage:
+    external: true
