@@ -39,7 +39,3 @@ docker-compose up —force-recreate -d
 Este comando irá subir todos os containers necessários para rodar todo o projeto
 
 Acesse as pastas `engine`, `django` e `nextjs` e siga as instruções.
-
-## Arquitetura do projeto
-
-![alt text](./arquitetura_projeto.png)
