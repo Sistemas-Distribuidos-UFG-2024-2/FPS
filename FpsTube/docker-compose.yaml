@@ -1,0 +1,4 @@
+include:
+  - ./django/docker-compose.yaml
+  - ./engine/docker-compose.yaml
+  - ./nextjs/docker-compose.yaml
