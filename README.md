@@ -20,6 +20,10 @@ Prof. Sergio Teixeira de Carvalho
 - Felipe Oliveira Prado (202006555)
 - Samuel Lacerda dos Santos Abreu (202006576)
 
+## Relatório Final
+
+[Link do relatório/resumo](https://omni-pub-bkt.s3.amazonaws.com/omni-tasks/upload_manual/88455bd8-f239-4669-8ca8-274782282d29.pdf)
+
 ## Link dos slides do Pitch
 
 [Link dos slides do pitch](https://www.canva.com/design/DAGRsqrEtC8/Yl_FvefgQj5hck8IdvdO1A/edit)
